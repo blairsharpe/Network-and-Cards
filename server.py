@@ -1,15 +1,13 @@
 import socket
 
-TCP_IP = "10.0.1.173"
-TCP_PORT = 4
-BUFFER_SIZE = 1024
+
+def server_broadcast_send():
+    MESSAGE = "This is a test"
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    s.sendto(MESSAGE.encode('utf-8'), ('10.0.1.255', 5005))
 
 
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+if __name__ == "__main__":
 
-server_socket.bind((TCP_IP, TCP_PORT))
-server_socket.listen(1)
-
-conn, addr = server_socket.accept()
-
-print("Connection request: {}".format(addr))
+    server_broadcast_send()

@@ -1,5 +1,5 @@
 import socket
-import time
+
 from threading import Thread
 
 
@@ -45,6 +45,15 @@ def server_broadcast_send():
     return True
 
 
+def list_clients(client_list):
+
+    print("Printing all players: ")
+
+    for clients in client_list:
+
+        print(clients.username)
+
+
 if __name__ == "__main__":
 
     # Setup sockets to listen for any clients
@@ -65,20 +74,26 @@ if __name__ == "__main__":
 
     # Wait for any clients to respond to the broadcast
     tcpServer.listen(4)
-    print("Waiting for clients...")
 
-    # Connect to any clients reponding to our message
-    (conn, (ip, port)) = tcpServer.accept()
+    # Get exactly four clients
+    while len(threads) < 2:
 
-    # Create our client thread instance
-    newthread = ClientThread(ip, port)
+        print("Waiting for clients...")
 
-    # Starts the threads activity. Calls run() method
-    newthread.start()
+        # Connect to any clients reponding to our message
+        (conn, (ip, port)) = tcpServer.accept()
 
-    # Add to our list of client threads
-    threads.append(newthread)
+        # Create our client thread instance
+        newthread = ClientThread(ip, port)
+
+        # Starts the threads activity. Calls run() method
+        newthread.start()
+
+        # Add to our list of client threads
+        threads.append(newthread)
 
     # Black Magic
     for t in threads:
         t.join()
+
+    list_clients(threads)

@@ -39,8 +39,12 @@ if __name__ == "__main__":
         BUFFER_SIZE = 2000
         MESSAGE = input("Username: ")
 
-        tcpClientA = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        tcpClientA.connect((host, port))
-        tcpClientA.send(MESSAGE.encode("utf-8"))
+        tcpClient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        tcpClient.connect((host, port))
+        tcpClient.send(MESSAGE.encode("utf-8"))
 
-        tcpClientA.close()
+        while True:
+
+            data = tcpClient.recvfrom(BUFFER_SIZE)
+            message, socket_info = data
+            print(message.decode("utf-8"))

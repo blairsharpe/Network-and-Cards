@@ -67,15 +67,13 @@ if __name__ == "__main__":
     # Add all of our clients to a list of threds
     threads = []
 
-    # Allow clients to sign up in 10 seconds
-
     # Broadcast to clients that we are live
     server_broadcast_send()
 
     # Wait for any clients to respond to the broadcast
     tcpServer.listen(4)
 
-    # Get exactly four clients
+    # Get exactly two clients
     while len(threads) < 2:
 
         print("Waiting for clients...")
@@ -92,7 +90,7 @@ if __name__ == "__main__":
         # Add to our list of client threads
         threads.append(newthread)
 
-    # Black Magic
+    # Termination of threads?
     for t in threads:
         t.join()
 

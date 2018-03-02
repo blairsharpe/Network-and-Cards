@@ -6,7 +6,7 @@ The first part is to set up a connection between a server and one or more client
 For those who want to be prepared, we are going to deal and play cards over the network.
 Formal Inputs & Outputs
 
-##Input description
+## Input description
 
 No input for the server, but the client needs to know where the server is.
 
